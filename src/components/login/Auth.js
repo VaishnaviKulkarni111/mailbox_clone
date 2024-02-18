@@ -47,7 +47,7 @@ const AuthPage = () => {
           }
     
           dispatch(authActions.login({ idToken: data.idToken, email: data.email }));
-         
+          navigate('/compose')
     
           setIsLoading(false);
         } catch (err) {

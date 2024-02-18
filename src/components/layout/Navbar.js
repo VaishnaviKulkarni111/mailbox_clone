@@ -16,7 +16,7 @@ const Navbar = () => {
       <header className={classes.header}>
         <nav>
           <ul>
-            
+            <li> <Link to='/compose'>Compose</Link></li>
             {(
               <button
                 className={classes.loginbtn} onClick={loginHandler}
