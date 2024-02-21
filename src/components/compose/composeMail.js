@@ -1,35 +1,83 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Form, Button } from 'react-bootstrap';
 import './compose.css';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, ContentState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const ComposeMail = () =>{
-    const [to, setTo] = useState('');
-    const [subject, setSubject] = useState('');
-    const [body, setBody] = useState('');
-  
-    const handleSubmit = (e) => {
+    const emailRef = useRef();
+    const subjectRef = useRef();
+    const editorRef = useRef();
+    const SendersMail = useSelector((state) => state.auth.email);
+    const [editorState, setEditorState] = useState(EditorState.createEmpty());
+   
+    const handleSubmit = async (e) => {
       e.preventDefault();
+      const rawContentState = convertToRaw(editorState.getCurrentContent());
+      const enteredEmail = emailRef.current.value;
+      const enteredSubject = subjectRef.current.value;
+     const emailBody =  rawContentState.blocks.map(block => block.text).join('\n');
+      const myEmail = enteredEmail.replace(/[.@]/g, "");
+  
+      const sentEmail = SendersMail.replace(/[.@]/g, "");
+  
+    
+      const currentDate = new Date();
+      const sentDate = currentDate.toDateString();
+      const sentTime = currentDate.toLocaleTimeString();
+     
+    
       // Add your logic to send the email
-      console.log('Sending email:', { to, subject, body });
-      // Reset form fields after sending
-      setTo('');
-      setSubject('');
-      setBody('');
+      console.log('Sending email:', {  body: emailBody, enteredEmail });
+      try {
+        await axios.post(
+          `https://mail-box-clone-default-rtdb.firebaseio.com//mailbox/drafts/${myEmail}.json`,
+          {
+            to: enteredEmail,
+            subject: enteredSubject,
+            content: emailBody,
+            from: SendersMail,
+            date: sentDate,
+            time: sentTime,
+            
+          }
+        );
+  
+        await axios.post(
+          `https://mail-box-clone-default-rtdb.firebaseio.com//mailbox/sent/${sentEmail}.json`,
+          {
+            to: enteredEmail,
+            subject: enteredSubject,
+            content: emailBody,
+            from: SendersMail,
+            date: sentDate,
+            time: sentTime,
+            read:true,
+          }
+        );
+  
+        emailRef.current.value = "";
+        subjectRef.current.value = "";
+        
+      } catch (error) {
+        console.error("Error in sending the mail", error);
+      }
+     
+      setEditorState(EditorState.createEmpty());
     };
   
 return(<>
+<div className="form">
  <div className="col-md-5 p-3 border" >
  <Form onSubmit={handleSubmit}>
       
         <div className="to">To: <Form.Control
           type="email"
           placeholder="Enter recipient email"
-          value={to}
-          onChange={(e) => setTo(e.target.value)}
+          ref={emailRef}
           required
         />
       </div>
@@ -39,19 +87,18 @@ return(<>
         <Form.Control
           type="text"
           placeholder="Enter subject"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
+          ref={subjectRef}
           required
         />
         <Form.Label>Body:</Form.Label>
         <Editor
         
-         // editorState={editorState}
+          editorState={editorState}
          editorClassName="editorClassName"
           toolbarClassName="toolbarClassName"
           wrapperClassName="wrapperClassName"
-         
-         // onEditorStateChange={(newEditorState) => setEditorState(newEditorState)}
+         ref={editorRef}
+          onEditorStateChange={(newEditorState) => setEditorState(newEditorState)}
         />
      
       
@@ -60,6 +107,7 @@ return(<>
         Send
       </Button>
     </Form>
+    </div>
     </div>
 </>)    
 }

@@ -1,6 +1,10 @@
 .to{
     display:flex;
 }
+.form{
+    display: flex;
+    justify-content: center;
+}
 
 
 .toolbarClassName {

@@ -14,19 +14,22 @@ const Navbar = () => {
   return (
     <>
       <header className={classes.header}>
-        <nav>
-          <ul>
-            <li> <Link to='/compose'>Compose</Link></li>
-            {(
+      {( 
               <button
                 className={classes.loginbtn} onClick={loginHandler}
               >
                 Login
               </button>
             )}
-          </ul>
-        </nav>
       </header>
+      <nav>
+          <ul>
+            <Link to="/compose">  <button className={classes.compose}>✏️ Compose</button></Link>
+           
+            <li> <Link to='/inbox'>✉️ Inbox</Link></li>
+            <li> <Link to='/sent'>🡆 Sent</Link></li>
+          </ul> 
+        </nav>
     </>
   );
 };
