@@ -20,9 +20,9 @@ const ComposeMail = () =>{
       const enteredEmail = emailRef.current.value;
       const enteredSubject = subjectRef.current.value;
      const emailBody =  rawContentState.blocks.map(block => block.text).join('\n');
-      const myEmail = enteredEmail.replace(/[.@]/g, "");
+      const recEmail = enteredEmail.replace(/[.@]/g, "");
   
-      const sentEmail = SendersMail.replace(/[.@]/g, "");
+      const senderEmail = SendersMail.replace(/[.@]/g, "");
   
     
       const currentDate = new Date();
@@ -34,7 +34,7 @@ const ComposeMail = () =>{
       console.log('Sending email:', {  body: emailBody, enteredEmail });
       try {
         await axios.post(
-          `https://mail-box-clone-default-rtdb.firebaseio.com//mailbox/drafts/${myEmail}.json`,
+          `https://mail-box-clone-default-rtdb.firebaseio.com//mailbox/drafts/${recEmail}.json`,
           {
             to: enteredEmail,
             subject: enteredSubject,
@@ -47,7 +47,7 @@ const ComposeMail = () =>{
         );
   
         await axios.post(
-          `https://mail-box-clone-default-rtdb.firebaseio.com//mailbox/sent/${sentEmail}.json`,
+          `https://mail-box-clone-default-rtdb.firebaseio.com//mailbox/sent/${senderEmail}.json`,
           {
             to: enteredEmail,
             subject: enteredSubject,

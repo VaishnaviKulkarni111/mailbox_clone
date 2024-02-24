@@ -9,7 +9,7 @@ function App() {
   return (<>
   <Navbar />
   <Routes>
-        <Route path="/" element={<AuthPage />} />
+        <Route path="/auth" element={<AuthPage />} />
         <Route path="/compose" element={<ComposeMail />} />
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/sent" element={<Sent />} />
