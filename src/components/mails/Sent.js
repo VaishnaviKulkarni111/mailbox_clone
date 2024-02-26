@@ -10,6 +10,8 @@ import { fetchSentEmailsSuccess, deleteSentEmail } from "../../store/sentSlice";
 const SentEmail = () => {
   const Email = useSelector((state) => state.auth.email);
   const emails = useSelector((state) => state.sent.emails); // Update to use sent state ... array
+  const isLoggedIn = useSelector((state) => state.auth.isAuthenticated)
+
   const myEmail = Email.replace(/[.@]/g, "");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,9 +37,12 @@ const SentEmail = () => {
         console.error("Error fetching emails: ", error);
       }
     };
+    if(isLoggedIn){
+      fetchSentEmails();
+    }
 
-    fetchSentEmails();
-  }, []);
+   
+  }, [dispatch, myEmail]);
 
   const handleDelete = async (emailId, event) => {
     event.stopPropagation();
@@ -52,12 +57,12 @@ const SentEmail = () => {
   };
 
   const handleClick = (id) => {
-    navigate(`/sentemails/${id}`);
+    navigate(`/sent/${id}`);
   };
 
   return (
-    <div className="main">
-      <ul className="email-list">
+    <div className="sent">
+      <ul className="sent-list">
         {emails.map((email) => (
           <li
             key={email.id}

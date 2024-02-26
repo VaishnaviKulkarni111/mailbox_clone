@@ -1,6 +1,33 @@
-.main{
- margin-left: 250px ;
- display: flex;
- justify-content: center;
- flex-direction: column;
+
+.inbox{
+        margin-left: 250px ;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
 }
+.email-item{
+    display: flex;
+    justify-content: space-between;
+   border-bottom:solid;
+   
+ 
+  
+}
+
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .dot.blue {
+    background-color: blue;
+  }
+  
+  .dot.white {
+    background-color: white;
+    border: 1px solid #1d1c1c; 
+  }

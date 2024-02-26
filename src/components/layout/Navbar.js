@@ -12,6 +12,7 @@ const Navbar = () => {
     navigate("/auth");
   };
   const logout = () => {
+    navigate('/auth')
     dispatch(authActions.logout())
   };
   return (

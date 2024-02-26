@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Inbox = () => {
   const Email = useSelector((state) => state.auth.email);
   const emails = useSelector((state) => state.inbox.emails);
+  const isLoggedIn = useSelector((state) => state.auth.isAuthenticated)
+
   const myEmail = Email.replace(/[.@]/g, "");
   console.log('myemail', myEmail)
   const navigate = useNavigate();
@@ -41,9 +43,12 @@ const Inbox = () => {
       const intervalId = setInterval(fetchEmails, 2000);
       return () => clearInterval(intervalId);
     };
-
-    fetchEmailsPeriodically(); 
-  }, []);
+    
+    if(isLoggedIn){
+      fetchEmailsPeriodically(); 
+    }
+   
+  }, [dispatch, myEmail]);
 
   
 
@@ -60,7 +65,7 @@ const Inbox = () => {
   };
 
   const handleClick = (id) => {
-    navigate(`/emails/${id}`);
+    navigate(`/inbox/${id}`);
   };
 
   const renderDot = (email) => {
@@ -72,8 +77,8 @@ const Inbox = () => {
   };
 
   return (
-    <div className="main">
-      <ul className="email-list">
+    <div className="inbox">
+      <ul className="inbox-list">
         {emails.map((email) => (
           <li
             key={email.id}
@@ -81,13 +86,13 @@ const Inbox = () => {
             onClick={() => handleClick(email.id)}
           >
             <div className="email-header">
-              {renderDot(email)}
+             
               <p className="sender-email">
-                From: <strong>{email.from}</strong>
+              {isLoggedIn && renderDot(email)}
+                From: <strong>{email.from} </strong> 
+                <strong>{email.subject}</strong>
               </p>
-              <p className="email-subject">
-                 <strong>{email.subject}</strong>
-              </p>
+              
             </div>
             <p className="email-content">{email.content}</p>
 
