@@ -26,21 +26,11 @@
   
   nav li {
     font-family: "Google Sans",Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     letter-spacing: normal;
     color: #202124;
-    text-decoration: none !important;
+   
   }
-  
- 
-  
-  .header a:hover,
-.header a:active,
-.header a.active {
-  color: #95bcf0;
-  padding-bottom: 0.25rem;
-  border-bottom: 4px solid #95bcf0;
-}
 
 
 
@@ -49,6 +39,7 @@
   border: none;
   border-radius: 10px;
   width: 6rem;
+  margin: 20px;
 }
 
 .compose {

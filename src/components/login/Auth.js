@@ -119,14 +119,7 @@ const AuthPage = () => {
         />
       </FloatingLabel>
 
-      {/* {!isLogin && <FloatingLabel controlId="confirmPassword" label="Confirm Password" className="mb-3">
-        <Form.Control
-          type="password"
-          placeholder="Confirm Password"
-          name="confirmPassword"        
-          required
-        />
-      </FloatingLabel>} */}
+    
       {isLogin && (
             <Button variant="link" onClick={forgotPasswordHandler}>
               Forgot Password?

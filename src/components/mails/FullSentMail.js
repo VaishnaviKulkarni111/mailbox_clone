@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import './fullSentMail.css'
 
@@ -39,9 +39,9 @@ const FullSentMail = () => {
 
   return (
     <div className="main">
-      <h3 className="emailSender">From: {email.from}</h3>
-      <h2 className="emailsubject">{email.subject}</h2>
-      <p className="email-content">{email.content}</p>
+      <h3 className="Sender">From: {email.from}</h3>
+      <h2 className="subject">{email.subject}</h2>
+      <p className="content">{email.content}</p>
       <button className="backBtn" onClick={() => navigate("/sent")}>
         Back
       </button>

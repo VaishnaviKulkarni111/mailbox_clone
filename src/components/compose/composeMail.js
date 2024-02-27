@@ -24,13 +24,10 @@ const ComposeMail = () =>{
   
       const senderEmail = SendersMail.replace(/[.@]/g, "");
   
-    
       const currentDate = new Date();
       const sentDate = currentDate.toDateString();
       const sentTime = currentDate.toLocaleTimeString();
      
-    
-      // Add your logic to send the email
       console.log('Sending email:', {  body: emailBody, enteredEmail });
       try {
         await axios.post(
@@ -92,7 +89,7 @@ return(<>
         />
         <Form.Label>Body:</Form.Label>
         <Editor
-        
+        placeholder="enter your text here!"
           editorState={editorState}
          editorClassName="editorClassName"
           toolbarClassName="toolbarClassName"

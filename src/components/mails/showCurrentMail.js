@@ -5,11 +5,12 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { inboxActions } from "../../store/inboxSlice";
 import { useNavigate } from "react-router-dom";
-import './inboxFullMail.css'
+import './fullSentMail.css'
 
 const ShowFullMail = () => {
   const Email = useSelector((state) => state.auth.email);
   const { id } = useParams();
+  console.log(id)
   const [email, setEmail] = useState(null);
   const myEmail = Email.replace(/[.@]/g, "");
   const navigate = useNavigate();
@@ -46,9 +47,9 @@ const ShowFullMail = () => {
 
   return (
     <div className="main">
-      <h3 className="emailSender">From: {email.from}</h3>
-      <h2 className="emailsubject">{email.subject}</h2>
-      <p className="email-content">{email.content}</p>
+      <h3 className="Sender">From: {email.from}</h3>
+      <h2 className="subject">{email.subject}</h2>
+      <p className="content">{email.content}</p>
       <button className="backBtn" onClick={() => navigate("/inbox")}>
         Back
       </button>

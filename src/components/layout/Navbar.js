@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
  import { authActions } from "../../store/AuthSlice";
 
 const Navbar = () => {
-   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated)
-   console.log(isLoggedIn)
+   const isLoggedIn = useSelector((state) => state.auth.isAuthenticated) ;
+   const unreadCount = useSelector((state) => state.inbox.unreadCount)
+  
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const loginHandler = () => {
@@ -25,14 +26,14 @@ const Navbar = () => {
                 Logout
         </button> )}
       </header>
-        <nav>
+       { isLoggedIn && <nav>
           <ul>
-            {isLoggedIn && <Link to="/compose">  <button className={classes.compose}>✏️ Compose</button></Link>}
+            {  <Link to="/compose">  <button className={classes.compose}>✏️ Compose</button></Link>}
            
-           { isLoggedIn && <li> <Link to='/inbox'>✉️ Inbox</Link></li>}
-           { isLoggedIn &&  <li> <Link to='/sent'>🡆 Sent</Link></li>}
+          <li> {  <Link to='/inbox'>✉️ Inbox  </Link>}    {unreadCount > 0 && `(${unreadCount})`}</li>
+           {  <li> <Link to='/sent'>🡆 Sent</Link></li>}
           </ul> 
-        </nav>
+        </nav>}
     </>
   );
 };

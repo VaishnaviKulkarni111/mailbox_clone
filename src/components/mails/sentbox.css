@@ -6,3 +6,10 @@
    }
 
 
+.email-content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block; /* Ensure that the ellipsis is applied inline */
+    width: 50%; 
+}

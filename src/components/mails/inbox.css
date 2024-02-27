@@ -9,11 +9,13 @@
     display: flex;
     justify-content: space-between;
    border-bottom:solid;
-   
- 
-  
+   margin-top: 3px;
 }
-
+.deleteBtn{
+  background: red;
+  color: white;
+  border: none;
+}
 
 .dot {
     width: 10px;
@@ -28,6 +30,6 @@
   }
   
   .dot.white {
-    background-color: white;
+    background-color: rgb(215, 214, 214);
     border: 1px solid #1d1c1c; 
   }
